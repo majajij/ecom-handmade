@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::fallback(function () {
+//     return view('404');
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/quick-view-product/{id}', [ProductController::class, 'quickview'])->name('quick-view-product');
+Route::resource('products', ProductController::class);
+Route::get('shop', [ProductController::class, 'shop']);
+Route::post('shopFilter', [ProductController::class, 'shop']);
