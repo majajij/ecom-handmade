@@ -130,6 +130,6 @@ class Product extends Model
             $products->orderBy('name', 'ASC');
         }
 
-        return $request->has('show') ? $products->paginate($request->show) : $products->paginate(self::attributes['show'][0]);
+        return $request->has('show') ? $products->paginate($request->show) : $products->paginate(self::$show[0]);
     }
 }

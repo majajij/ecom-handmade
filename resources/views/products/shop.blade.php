@@ -48,14 +48,14 @@
                                     <p>Sort By:</p>
                                 </div>
                                 <div class="shop-select">
-                                    <select class="shop-sort">
-                                        <option data-display="Default">Default</option>
-                                        <option value="1"> Name, A to Z</option>
-                                        <option value="2"> Name, Z to A</option>
-                                        <option value="3"> Price, low to high</option>
-                                        <option value="4"> Price, high to low</option>
+                                    <select class="shop-sort" id="option-sort" onchange="selectedOption('sort')">
+                                        @foreach ($sort as $index => $text)
+                                            <option {{ $loop->first ? 'data-display=' . $text : '' }}
+                                                value="{{ $index }}">
+                                                {{ $text }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <!-- Right Side End -->
@@ -65,14 +65,15 @@
                                     <p>Category:</p>
                                 </div>
                                 <div class="shop-select">
-                                    <select class="shop-sort">
-                                        <option data-display="Default">Default</option>
-                                        <option value="1"> Name, A to Z</option>
-                                        <option value="2"> Name, Z to A</option>
-                                        <option value="3"> Price, low to high</option>
-                                        <option value="4"> Price, high to low</option>
+                                    <select class="shop-sort" id="option-categories"
+                                        onchange="selectedOption('categories')">
+                                        @foreach ($categories as $category)
+                                            <option {{ $loop->first ? 'data-display=' . $category->name : '' }}
+                                                value="{{ $category->id }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <!-- Right Side End -->
@@ -82,14 +83,14 @@
                                     <p>Show:</p>
                                 </div>
                                 <div class="shop-select show">
-                                    <select class="shop-sort">
-                                        <option data-display="12">12</option>
-                                        <option value="1"> 12</option>
-                                        <option value="2"> 10</option>
-                                        <option value="3"> 25</option>
-                                        <option value="4"> 20</option>
+                                    <select class="shop-sort" id="option-show" onchange="selectedOption('show')">
+                                        @foreach ($show as $num)
+                                            <option {{ $loop->first ? 'data-display=' . $num : '' }}
+                                                value="{{ $num }}">
+                                                {{ $num }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <!-- Right Side End -->
@@ -117,14 +118,14 @@
                                     <p>Sort By:</p>
                                 </div>
                                 <div class="shop-select">
-                                    <select class="shop-sort">
-                                        <option data-display="Default">Default</option>
-                                        <option value="1"> Name, A to Z</option>
-                                        <option value="2"> Name, Z to A</option>
-                                        <option value="3"> Price, low to high</option>
-                                        <option value="4"> Price, high to low</option>
+                                    <select class="shop-sort" id="option-sort" onchange="selectedOption('sort')">
+                                        @foreach ($sort as $index => $text)
+                                            <option {{ $loop->first ? 'data-display=' . $text : '' }}
+                                                value="{{ $index }}">
+                                                {{ $text }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <div class="select-shoing-wrap d-flex align-items-center">
@@ -132,14 +133,15 @@
                                     <p>Category:</p>
                                 </div>
                                 <div class="shop-select">
-                                    <select class="shop-sort">
-                                        <option data-display="Default">Default</option>
-                                        <option value="1"> Name, A to Z</option>
-                                        <option value="2"> Name, Z to A</option>
-                                        <option value="3"> Price, low to high</option>
-                                        <option value="4"> Price, high to low</option>
+                                    <select class="shop-sort" id="option-categories"
+                                        onchange="selectedOption('categories')">
+                                        @foreach ($categories as $category)
+                                            <option {{ $loop->first ? 'data-display=' . $category->name : '' }}
+                                                value="{{ $category->id }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                         </div>
@@ -151,14 +153,14 @@
                                     <p>Show:</p>
                                 </div>
                                 <div class="shop-select show">
-                                    <select class="shop-sort">
-                                        <option data-display="12">12</option>
-                                        <option value="1"> 12</option>
-                                        <option value="2"> 10</option>
-                                        <option value="3"> 25</option>
-                                        <option value="4"> 20</option>
+                                    <select class="shop-sort" id="option-show" onchange="selectedOption('show')">
+                                        @foreach ($show as $num)
+                                            <option {{ $loop->first ? 'data-display=' . $num : '' }}
+                                                value="{{ $num }}">
+                                                {{ $num }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <!-- Right Side End -->
@@ -1175,4 +1177,12 @@
         </div>
     </div>
     <!-- Shop Page End  -->
+@endsection
+
+@section('add_script')
+    <script>
+        function selectedOption(option_type) {
+            alert($('#option-' + option_type).val())
+        }
+    </script>
 @endsection

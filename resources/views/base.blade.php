@@ -482,6 +482,7 @@
 
     <!-- Global Vendor, plugins JS -->
     @include('layouts.scripts')
+    @yield('add_script')
 </body>
 
 </html>

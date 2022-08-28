@@ -37,8 +37,8 @@ class ProductController extends Controller
         return view('products.shop', [
             'products' => $products,
             'categories' => $categories,
-            'sort' => Product::sort,
-            'show' => Product::show,
+            'sort' => Product::$sort,
+            'show' => Product::$show,
         ]);
     }
 
