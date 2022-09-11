@@ -18,12 +18,14 @@ class ProductController extends Controller
 
     public function shop(Request $request)
     {
+        // dd($request);
         //CREATION OF REQUEST
+
         $products = Product::filterProduct($request);
         $categories = Category::get(['id', 'name']);
 
         // $request->show ? $products->paginate($request->show) : $products->paginate($show[0]);
-        // dd($products);
+        // var_dump(unset($request->all()["_token"]));
         foreach ($products as $key => $product) {
             $product->getProductDetails();
             // TODO to calculate best sale, we should have an orders table
@@ -34,11 +36,16 @@ class ProductController extends Controller
         // dd(csrf_token());
         // var_dump($products);
 
+        $selected = $request->all();
+        unset($selected['_token']);
+        session()->put('shop_filter', $selected);
+
         return view('products.shop', [
             'products' => $products,
             'categories' => $categories,
             'sort' => Product::$sort,
             'show' => Product::$show,
+            // 'selected' => count($request->all()) > 0 ? $selected : null,
         ]);
     }
 

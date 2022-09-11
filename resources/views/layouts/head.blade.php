@@ -4,7 +4,7 @@
 <title>Mioca - Handmade Goods eCommerce HTML Template</title>
 <meta name="description" content="Mioca - Handmade Goods eCommerce HTML Template" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <!-- Add site Favicon -->
 <link rel="shortcut icon" href="{{ asset('assets/images/favicon/favicon.ico') }}" type="image/png">
 

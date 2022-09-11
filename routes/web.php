@@ -22,4 +22,4 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/quick-view-product/{id}', [ProductController::class, 'quickview'])->name('quick-view-product');
 Route::resource('products', ProductController::class);
 Route::get('shop', [ProductController::class, 'shop']);
-Route::post('shopFilter', [ProductController::class, 'shop']);
+Route::post('shop', [ProductController::class, 'shop'])->name('shopFilter');
