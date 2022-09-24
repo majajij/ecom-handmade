@@ -36,9 +36,18 @@ class ProductController extends Controller
         // dd(csrf_token());
         // var_dump($products);
 
-        $selected = $request->all();
-        unset($selected['_token']);
-        session()->put('shop_filter', $selected);
+        // $selected = $request->all();
+        // unset($selected['_token']);
+        // if (!empty($selected)) {
+        //     $request->session()->put('shop_filter', $selected);
+        // } else {
+        //     $selected = [
+        //         'category' => $categories[0]->id,
+        //         'sort' => Product::$sort[0],
+        //         'show' => Product::$show[0],
+        //     ];
+        //     $request->session()->put('shop_filter', $selected);
+        // }
 
         return view('products.shop', [
             'products' => $products,

@@ -54,8 +54,7 @@
                                         <select class="shop-sort" name="sort" id="option-sort">
                                             @foreach ($sort as $index => $text)
                                                 <option {{ $loop->first ? 'data-display=' . $text : '' }}
-                                                    value="{{ $index }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['sort'] == $index ? 'selected="selected"' : '') : '' }}>
+                                                    value="{{ $index }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['sort'] == $index ? 'selected="selected"' : '') : '' }} --}}>
                                                     {{ $text }}
                                                 </option>
                                             @endforeach
@@ -70,10 +69,10 @@
                                     </div>
                                     <div class="shop-select">
                                         <select class="shop-sort" name="category" id="option-categories">
+                                            <option>All</option>
                                             @foreach ($categories as $category)
                                                 <option {{ $loop->first ? 'data-display=' . $category->name : '' }}
-                                                    value="{{ $category->id }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['category'] == $category->id ? 'selected="selected"' : '') : '' }}>
+                                                    value="{{ $category->id }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['category'] == $category->id ? 'selected="selected"' : '') : '' }} --}}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -90,8 +89,7 @@
                                         <select class="shop-sort" name="show" id="option-show">
                                             @foreach ($show as $num)
                                                 <option {{ $loop->first ? 'data-display=' . $num : '' }}
-                                                    value="{{ $num }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['show'] == $num ? 'selected="selected"' : '') : '' }}>
+                                                    value="{{ $num }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['show'] == $num ? 'selected="selected"' : '') : '' }} --}}>
                                                     {{ $num }}
                                                 </option>
                                             @endforeach
@@ -107,7 +105,7 @@
                         <!-- Shop Top Area End -->
                     </form>
 
-                    <form action="{{ route('shopFilter') }}" method="get">
+                    {{-- <form action="{{ route('shopFilter') }}" method="get">
                         <!-- Mobile shop bar -->
                         <div class="shop-top-bar mobile-tab">
                             <!-- Left Side End -->
@@ -125,12 +123,13 @@
                                     <div class="shot-product">
                                         <p>Sort By:</p>
                                     </div>
+                                    {{ session()->get('shop_filter') }}
                                     <div class="shop-select">
                                         <select class="shop-sort" id="option-sort" name="sort">
                                             @foreach ($sort as $index => $text)
                                                 <option {{ $loop->first ? 'data-display=' . $text : '' }}
                                                     value="{{ $index }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['sort'] == $index ? 'selected="selected"' : '') : '' }}>
+                                                    {{ session()->has('shop_filter') ? (session()->get('shop_filter')['sort'] == $index ? 'selected="selected"' : '') : '' }}>
                                                     {{ $text }}
                                                 </option>
                                             @endforeach
@@ -146,7 +145,7 @@
                                             @foreach ($categories as $category)
                                                 <option {{ $loop->first ? 'data-display=' . $category->name : '' }}
                                                     value="{{ $category->id }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['category'] == $category->id ? 'selected="selected"' : '') : '' }}>
+                                                    {{ session()->has('shop_filter') ? (session()->get('shop_filter')['category'] == $category->id ? 'selected="selected"' : '') : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -166,7 +165,7 @@
                                             @foreach ($show as $num)
                                                 <option {{ $loop->first ? 'data-display=' . $num : '' }}
                                                     value="{{ $num }}"
-                                                    {{ session()->get('shop_filter') ? (session()->get('shop_filter')['show'] == $num ? 'selected="selected"' : '') : '' }}>
+                                                    {{ session()->has('shop_filter') ? (session()->get('shop_filter')['show'] == $num ? 'selected="selected"' : '') : '' }}>
                                                     {{ $num }}
                                                 </option>
                                             @endforeach
@@ -179,7 +178,7 @@
                             </div>
                         </div>
                         <!-- Mobile shop bar -->
-                    </form>
+                    </form> --}}
 
                     <!-- Shop Bottom Area Start -->
                     <div class="shop-bottom-area">
@@ -772,7 +771,6 @@
                             </div>
                         </div>
                         <!-- Tab Content Area End -->
-
                         {{ $products->links('vendor.pagination.template-pagination') }}
                         <!--  Pagination Area Start -->
                         {{-- <div class="pro-pagination-style text-center text-lg-end mb-0" data-aos="fade-up"

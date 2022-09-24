@@ -104,9 +104,13 @@ class Product extends Model
         $products = self::query();
 
         if ($request->has('category')) {
-            $products->with('categories:id,name')->whereHas('categories', function ($query) use ($request) {
-                $query->where('categories.id', $request->category);
-            });
+            if ($request->get('category') == 'All') {
+                $products->with('categories:id,name')->get();
+            } else {
+                $products->with('categories:id,name')->whereHas('categories', function ($query) use ($request) {
+                    $query->where('categories.id', $request->category);
+                });
+            }
         }
 
         if ($request->has('sort')) {
