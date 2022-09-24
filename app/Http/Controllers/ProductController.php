@@ -36,6 +36,8 @@ class ProductController extends Controller
         // dd(csrf_token());
         // var_dump($products);
 
+        $request->session()->put('shop_filter', $request->all());
+
         // $selected = $request->all();
         // unset($selected['_token']);
         // if (!empty($selected)) {

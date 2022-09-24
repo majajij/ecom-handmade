@@ -303,7 +303,7 @@
                             <!-- Single Prodect -->
                             <div class="product">
                                 <div class="thumb">
-                                    <a href="single-product.html" class="image">
+                                    <a href="{{ 'products/' . $related_product->id }}" class="image">
                                         <img src="{{ asset($related_product->images[0]->path) }}" alt="Product" />
                                         <img class="hover-image" src="{{ asset($related_product->images[0]->path) }}"
                                             alt="Product" />

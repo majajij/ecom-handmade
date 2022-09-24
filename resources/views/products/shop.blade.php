@@ -54,7 +54,8 @@
                                         <select class="shop-sort" name="sort" id="option-sort">
                                             @foreach ($sort as $index => $text)
                                                 <option {{ $loop->first ? 'data-display=' . $text : '' }}
-                                                    value="{{ $index }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['sort'] == $index ? 'selected="selected"' : '') : '' }} --}}>
+                                                    value="{{ $index }}"
+                                                    {{ request()->input('sort') == $index ? 'selected' : '' }}>
                                                     {{ $text }}
                                                 </option>
                                             @endforeach
@@ -72,7 +73,8 @@
                                             <option>All</option>
                                             @foreach ($categories as $category)
                                                 <option {{ $loop->first ? 'data-display=' . $category->name : '' }}
-                                                    value="{{ $category->id }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['category'] == $category->id ? 'selected="selected"' : '') : '' }} --}}>
+                                                    value="{{ $category->id }}"
+                                                    {{ request()->input('category') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
@@ -89,7 +91,8 @@
                                         <select class="shop-sort" name="show" id="option-show">
                                             @foreach ($show as $num)
                                                 <option {{ $loop->first ? 'data-display=' . $num : '' }}
-                                                    value="{{ $num }}" {{-- {{ session()->has('shop_filter') ? (session()->get('shop_filter')['show'] == $num ? 'selected="selected"' : '') : '' }} --}}>
+                                                    value="{{ $num }}"
+                                                    {{ request()->input('show') == $num ? 'selected' : '' }}>
                                                     {{ $num }}
                                                 </option>
                                             @endforeach
@@ -99,7 +102,7 @@
                                 <!-- Right Side End -->
                                 <!-- Left Side start -->
                                 {{-- <p class="compare-product">Product Compare <span>(0) </span></p> --}}
-                                <button type="submit" class="add-to-cart">Filter</button>
+                                <button type="submit" class="btn btn-primary btn-hover-dark">Filter</button>
                             </div>
                         </div>
                         <!-- Shop Top Area End -->
@@ -771,7 +774,7 @@
                             </div>
                         </div>
                         <!-- Tab Content Area End -->
-                        {{ $products->links('vendor.pagination.template-pagination') }}
+                        {{ $products->appends(request()->input())->links('vendor.pagination.template-pagination') }}
                         <!--  Pagination Area Start -->
                         {{-- <div class="pro-pagination-style text-center text-lg-end mb-0" data-aos="fade-up"
                             data-aos-delay="200">
@@ -800,25 +803,4 @@
 @endsection
 
 @section('add_script')
-    <script>
-        function selectedOption() {
-            let sort = $('#option-sort').val()
-            let categories = $('#option-categories').val()
-            let show = $('#option-show').val()
-            $.ajax({
-                url: "shopFilter",
-                method: "POST",
-                data: {
-                    sort,
-                    categories,
-                    show
-                },
-                dataType: "json"
-            }).done(res => {
-                console.log(res);
-            }).fail((jqXHR, textStatus) => {
-                console.log(textStatus);
-            })
-        }
-    </script>
 @endsection
