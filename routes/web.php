@@ -23,3 +23,4 @@ Route::get('/quick-view-product/{id}', [ProductController::class, 'quickview'])-
 Route::resource('products', ProductController::class);
 Route::get('shop', [ProductController::class, 'shop']);
 Route::post('shop', [ProductController::class, 'shop'])->name('shopFilter');
+Route::post('/add_to_cart', [ProductController::class, 'addToCart']);

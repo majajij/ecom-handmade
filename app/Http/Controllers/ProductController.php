@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Cart;
 
 class ProductController extends Controller
 {
+    public function addToCart(Request $request)
+    {
+        try {
+            Cart::add($request->prd_id, $request->prd_name, $request->prd_qty, $request->prd_price);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return response()->json(Cart::content(), 200);
+    }
+
     public function quickView($id)
     {
         $product = Product::findOrFail($id);

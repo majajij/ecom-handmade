@@ -88,14 +88,18 @@
                         <p class="mt-30px mb-0">{{ $product->short_desc }}</p>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                                <input class="cart-plus-minus-box" id="product_qty" type="text" name="qtybutton"
+                                    value="1" />
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart"> Add To
+                                <button class="add-cart" {{ $product->in_stock ? '' : 'disabled' }}
+                                    onclick="{{ 'addToCart(' . $product->id . ',"' . $product->name . '",' . $product->price . ')' }}">
+                                    Add To
                                     Cart</button>
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart buy-button"> Buy It Now</button>
+                                <button {{ $product->in_stock ? '' : 'disabled' }} class="add-cart buy-button"> Buy It
+                                    Now</button>
                             </div>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
                                 <a href="wishlist.html"><i class="pe-7s-like"></i></a>
@@ -354,4 +358,31 @@
         </div>
     </div>
     <!-- Related product Area End -->
+@endsection
+@section('add_script')
+    <script>
+        function addToCart(prd_id, prd_name, prd_price) {
+            let prd_qty = $("#product_qty").val()
+
+            // console.log(prd_id);
+            // console.log(prd_name);
+            // console.log(prd_qty);
+            // console.log(prd_price);
+
+            $.ajax({
+                url: '/add_to_cart',
+                type: 'post',
+                data: {
+                    prd_id,
+                    prd_name,
+                    prd_qty,
+                    prd_price
+                }
+            }).success(res => {
+                console.log(res);
+            }).fail(res => {
+                console.log(res);
+            })
+        }
+    </script>
 @endsection
