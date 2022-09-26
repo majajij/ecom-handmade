@@ -380,7 +380,7 @@
                     prd_image
                 }
             }).success(res => {
-                console.log(res);
+                location.reload(true)
             }).fail(res => {
                 console.log(res);
             })

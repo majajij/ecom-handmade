@@ -38,29 +38,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (Cart::content() as $prd)
+                                    @if (Cart::count() > 0)
+                                        @foreach (Cart::content() as $prd)
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    <a href="#"><img class="img-responsive ml-15px"
+                                                            src="{{ asset($prd->options->image) }}" alt="" /></a>
+                                                </td>
+                                                <td class="product-name"><a
+                                                        href="{{ 'products/' . $prd->id }}">{{ $prd->name }}</a></td>
+                                                <td class="product-price-cart"><span
+                                                        class="amount">${{ $prd->price }}</span>
+                                                </td>
+                                                <td class="product-quantity">
+                                                    <div class="cart-plus-minus">
+                                                        <input id="product_qty" class="cart-plus-minus-box" type="text"
+                                                            name="qtybutton" value="{{ $prd->qty }}" />
+                                                    </div>
+                                                </td>
+                                                <td class="product-subtotal">${{ $prd->subtotal }}</td>
+                                                <td class="product-remove">
+                                                    {{-- <a href="#"><i class="fa fa-pencil"></i></a> --}}
+                                                    <a href="#"><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <td class="product-thumbnail">
-                                                <a href="#"><img class="img-responsive ml-15px"
-                                                        src="{{ asset($prd->options->image) }}" alt="" /></a>
-                                            </td>
-                                            <td class="product-name"><a
-                                                    href="{{ 'products/' . $prd->id }}">{{ $prd->name }}</a></td>
-                                            <td class="product-price-cart"><span class="amount">${{ $prd->price }}</span>
-                                            </td>
-                                            <td class="product-quantity">
-                                                <div class="cart-plus-minus">
-                                                    <input id="product_qty" class="cart-plus-minus-box" type="text"
-                                                        name="qtybutton" value="{{ $prd->qty }}" />
-                                                </div>
-                                            </td>
-                                            <td class="product-subtotal">${{ $prd->subtotal }}</td>
-                                            <td class="product-remove">
-                                                {{-- <a href="#"><i class="fa fa-pencil"></i></a> --}}
-                                                <a href="#"><i class="fa fa-times"></i></a>
-                                            </td>
+                                            There is no product, <a href="/shop">click here</a> to add new one.
                                         </tr>
-                                    @endforeach
+                                    @endif
+
 
                                 </tbody>
                             </table>

@@ -82,12 +82,14 @@
                                 </div>
                             </li>
                         @endforeach
+                        <li>
+                            <b>Total: ${{ Cart::total() }}</b>
+                        </li>
                     @else
                         <li>
 
                             <div class="content">
                                 <a href="/shop" class="title">There is no Product, click here to add new products</a>
-
                             </div>
                         </li>
                     @endif
@@ -480,6 +482,7 @@
     <!-- Global Vendor, plugins JS -->
     @include('layouts.scripts')
     @yield('add_script')
+    @include('layouts.dialogs')
 </body>
 
 </html>

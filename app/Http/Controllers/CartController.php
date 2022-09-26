@@ -15,6 +15,7 @@ class CartController extends Controller
             throw $th;
         }
 
+        $request->session()->flash('alert', ['type' => 'success', 'message' => 'Article added successfully']);
         return response()->json(Cart::content(), 200);
     }
 
@@ -33,7 +34,7 @@ class CartController extends Controller
     public function clearCart(Request $request)
     {
         Cart::destroy();
-        return view('cart');
+        return redirect('cart');
     }
 
     public function updateCart(Request $request)
