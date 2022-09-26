@@ -69,38 +69,35 @@
 
             <div class="body customScroll">
                 <ul class="minicart-product-list">
-                    <li>
-                        <a href="single-product.html" class="image"><img src="assets/images/product-image/1.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand-Made Garlic Mortar</a>
-                            <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="assets/images/product-image/2.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Handmade Ceramic Pottery</a>
-                            <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="assets/images/product-image/3.jpg"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Hand Painted Bowls</a>
-                            <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
+                    @if (Cart::count() > 0)
+                        @foreach (Cart::content() as $prd)
+                            <li>
+                                <a href="single-product.html" class="image"><img
+                                        src="{{ asset($prd->options->image) }}" alt="Cart product Image"></a>
+                                <div class="content">
+                                    <a href="single-product.html" class="title">{{ $prd->name }}</a>
+                                    <span class="quantity-price">{{ $prd->qty }} x <span
+                                            class="amount">${{ $prd->price }}</span></span>
+                                    <a href="#" class="remove">×</a>
+                                </div>
+                            </li>
+                        @endforeach
+                    @else
+                        <li>
+
+                            <div class="content">
+                                <a href="/shop" class="title">There is no Product, click here to add new products</a>
+
+                            </div>
+                        </li>
+                    @endif
+
+
                 </ul>
             </div>
             <div class="foot">
                 <div class="buttons mt-30px">
-                    <a href="cart.html" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                    <a href="/cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
                     <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
                 </div>
             </div>

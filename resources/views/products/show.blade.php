@@ -93,7 +93,7 @@
                             </div>
                             <div class="pro-details-cart">
                                 <button class="add-cart" {{ $product->in_stock ? '' : 'disabled' }}
-                                    onclick="{{ 'addToCart(' . $product->id . ',"' . $product->name . '",' . $product->price . ')' }}">
+                                    onclick="{{ 'addToCart(' . $product->id . ',"' . $product->name . '",' . $product->price . ',"' . (count($product->images) > 0 ? $product->images[0]->path : 'assets/images/product-image/none.jpg') . '")' }}">
                                     Add To
                                     Cart</button>
                             </div>
@@ -361,7 +361,7 @@
 @endsection
 @section('add_script')
     <script>
-        function addToCart(prd_id, prd_name, prd_price) {
+        function addToCart(prd_id, prd_name, prd_price, prd_image) {
             let prd_qty = $("#product_qty").val()
 
             // console.log(prd_id);
@@ -376,7 +376,8 @@
                     prd_id,
                     prd_name,
                     prd_qty,
-                    prd_price
+                    prd_price,
+                    prd_image
                 }
             }).success(res => {
                 console.log(res);
