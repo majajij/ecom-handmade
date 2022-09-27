@@ -19,6 +19,12 @@ use App\Http\Controllers\CartController;
 //     return view('404');
 // });
 
+Route::fallback(function () {
+    return redirect('404');
+});
+Route::get('404', function () {
+    return view('404');
+});
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/quick-view-product/{id}', [ProductController::class, 'quickview'])->name('quick-view-product');
 Route::resource('products', ProductController::class);
@@ -27,3 +33,5 @@ Route::post('shop', [ProductController::class, 'shop'])->name('shopFilter');
 Route::post('add_to_cart', [CartController::class, 'addToCart']);
 Route::get('cart', [CartController::class, 'showCart']);
 Route::get('clear_cart', [CartController::class, 'clearCart']);
+Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
+Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
