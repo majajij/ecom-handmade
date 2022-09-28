@@ -148,15 +148,17 @@
                                     <div class="title-wrap">
                                         <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                     </div>
-                                    <h5>Total products <span>$260.00</span></h5>
-                                    <div class="total-shipping">
+                                    <h5>Sub total products <span>${{ Cart::subtotal() }}</span></h5>
+                                    <h5>Tax <span>${{ Cart::tax() }}</span></h5>
+                                    {{-- <h5>Total products <span>${{ Cart::total() }}</span></h5> --}}
+                                    {{-- <div class="total-shipping">
                                         <h5>Total shipping</h5>
                                         <ul>
                                             <li><input type="checkbox" /> Standard <span>$20.00</span></li>
                                             <li><input type="checkbox" /> Express <span>$30.00</span></li>
                                         </ul>
-                                    </div>
-                                    <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                                    </div> --}}
+                                    <h4 class="grand-totall-title">Grand Total <span>${{ Cart::total() }}</span></h4>
                                     <a href="checkout.html">Proceed to Checkout</a>
                                 </div>
                             </div>
