@@ -133,14 +133,35 @@
                             <i class="pe-7s-search"></i>
                         </a>
                         <!-- Single Wedge End -->
+
                         <div class="header-bottom-set dropdown">
                             <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
-                                    class="pe-7s-users"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
+                                    class="pe-7s-users"></i>
+                                {{-- {{ auth()->user()->name }}  --}}
+                            </button>
+                            {{-- <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a class="dropdown-item" href="my-account.html">My account</a></li>
                                 <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
                                 <li><a class="dropdown-item" href="login.html">Sign in</a></li>
+                            </ul> --}}
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a class="dropdown-item"
+                                        href="/{{ auth()->check() ? 'my_ccount' : 'login' }}">{{ auth()->check() ? 'My Account' : 'Login' }}</a>
+                                </li>
+                                @if (!auth()->check())
+                                    <li><a class="dropdown-item" href="/register">Register</a></li>
+                                @endif
+                                @auth()
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                @endauth
                             </ul>
+
                         </div>
                         <!-- Single Wedge Start -->
                         <a href="#offcanvas-wishlist" class="header-action-btn offcanvas-toggle">

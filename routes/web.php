@@ -36,4 +36,6 @@ Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
 
+// ['middleware' => ['auth', 'verify']]
+
 require __DIR__ . '/auth.php';
