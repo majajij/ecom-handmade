@@ -52,9 +52,9 @@
                                                 <td class="product-price-cart"><span
                                                         class="amount">${{ $prd->price }}</span>
                                                 </td>
+                                                <input type="hidden" name="prd_row_id" value="{{ $prd->rowId }}">
                                                 <td class="product-quantity">
                                                     <div class="cart-plus-minus">
-                                                        <input type="hidden" name="prd_row_id" value="{{ $prd->rowId }}">
                                                         <input id="prd_qty" class="cart-plus-minus-box" type="number"
                                                             min="1" max="100" name="prd_qty"
                                                             value="{{ $prd->qty }}" required />

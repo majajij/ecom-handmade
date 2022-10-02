@@ -17,8 +17,8 @@ class Product extends Model
         3 => 'Price low to high',
         4 => 'Price high to low',
     ];
-    // public static $show = [10, 15, 20, 50];
-    public static $show = [2, 5, 8, 10];
+    public static $show = [10, 15, 20, 50];
+    // public static $show = [2, 5, 8, 10];
 
     public function categories()
     {
