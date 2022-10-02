@@ -31,70 +31,68 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>First Name</label>
-                                        <input type="text" />
+                                        <input type="text" name="first_name" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>Last Name</label>
-                                        <input type="text" />
+                                        <input type="text" name="last_name" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-4">
                                         <label>Company Name</label>
-                                        <input type="text" />
+                                        <input type="text" name="company" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-select mb-4">
                                         <label>Country</label>
-                                        <select>
-                                            <option>Select a country</option>
-                                            <option>Azerbaijan</option>
-                                            <option>Bahamas</option>
-                                            <option>Bahrain</option>
-                                            <option>Bangladesh</option>
-                                            <option>Barbados</option>
+                                        <select name="country" required>
+                                            <option value="0">Select a country</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-4">
-                                        <label>Street Address</label>
-                                        <input class="billing-address" placeholder="House number and street name"
-                                            type="text" />
-                                        <input placeholder="Apartment, suite, unit etc." type="text" />
+                                        <label>Address</label>
+                                        <input name="address" class="billing-address"
+                                            placeholder="House number and street name" type="text" required />
+                                        {{-- <input placeholder="Apartment, suite, unit etc." type="text" /> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-4">
                                         <label>Town / City</label>
-                                        <input type="text" />
+                                        <input type="text" name="city" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>State / County</label>
-                                        <input type="text" />
+                                        <input type="text" name="state" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>Postcode / ZIP</label>
-                                        <input type="text" />
+                                        <input type="text" name="postcode" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>Phone</label>
-                                        <input type="text" />
+                                        <input type="tel" name="phone" required />
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="billing-info mb-4">
                                         <label>Email Address</label>
-                                        <input type="text" />
+                                        <input type="email" name="email" required />
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +100,7 @@
                                 <h4>Additional information</h4>
                                 <div class="additional-info">
                                     <label>Order notes</label>
-                                    <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="message"></textarea>
+                                    <textarea name="notes" placeholder="Notes about your order, e.g. special notes for delivery. " name="message"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -120,10 +118,13 @@
                                     </div>
                                     <div class="your-order-middle">
                                         <ul>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                    class="order-price">$100 </span></li>
-                                            <li><span class="order-middle-left">Product Name X 1</span> <span
-                                                    class="order-price">$100 </span></li>
+                                            @foreach (Cart::content() as $prd)
+                                                <li>
+                                                    <span class="order-middle-left">{{ $prd->name . ' x ' . $prd->qty }}
+                                                    </span>
+                                                    <span class="order-price">${{ $prd->subtotal }} </span>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                     <div class="your-order-bottom">
@@ -135,11 +136,11 @@
                                     <div class="your-order-total">
                                         <ul>
                                             <li class="order-total">Tax</li>
-                                            <li>$20</li>
+                                            <li>${{ Cart::tax() }}</li>
                                         </ul>
                                         <ul>
                                             <li class="order-total">Total</li>
-                                            <li>$100</li>
+                                            <li>${{ Cart::total() }}</li>
                                         </ul>
                                     </div>
                                 </div>

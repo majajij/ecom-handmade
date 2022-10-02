@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cart;
+use App\Models\Country;
 
 class CartController extends Controller
 {
@@ -68,9 +69,10 @@ class CartController extends Controller
     {
         try {
             if ($request->isMethod('post')) {
-                dd('checkout post');
+                dd($request);
             } else {
-                return view('checkout');
+                $countries = Country::all();
+                return view('checkout', compact('countries'));
             }
 
             // dd('checkout');
