@@ -20,6 +20,11 @@ class Product extends Model
     public static $show = [10, 15, 20, 50];
     // public static $show = [2, 5, 8, 10];
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);
