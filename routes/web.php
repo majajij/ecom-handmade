@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,16 @@ Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
+
+//BEGIN TEST PAYMENT
+Route::get('checkout_test', function () {
+    return view('checkout_test');
+});
+Route::post('payment', [PaymentController::class, 'pay'])->name('payment');
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);
+
+//END TEST PAYMENT
 
 // ['middleware' => ['auth', 'verify']]
 
