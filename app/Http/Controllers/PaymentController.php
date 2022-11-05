@@ -25,7 +25,7 @@ class PaymentController extends Controller
                 ->purchase([
                     'amount' => $request->amount,
                     'currency' => config('paypal.credentials.currency'),
-                    'returnUrl' => url('success'),
+                    'returnUrl' => url('success?ORDER_ID=' . $request->amount),
                     'cancelUrl' => url('error'),
                 ])
                 ->send();
