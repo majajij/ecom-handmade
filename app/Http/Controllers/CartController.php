@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cart;
 use App\Models\Country;
+use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
@@ -69,7 +70,19 @@ class CartController extends Controller
     {
         try {
             if ($request->isMethod('post')) {
-                dd($request);
+                $response = Http::post('http://localhost:8000/payment', [
+                    'order_id' => 2,
+                    'amount' => 100,
+                ]);
+
+                if ($response->successful()) {
+                    $request->session()->flash('alert', ['type' => 'success', 'message' => 'payment successful']);
+                }
+                if ($response->failed()) {
+                    $request->session()->flash('alert', ['type' => 'error', 'message' => 'payment failed']);
+                }
+
+                // dd($request);
             } else {
                 $countries = Country::all();
                 return view('checkout', compact('countries'));
@@ -82,6 +95,6 @@ class CartController extends Controller
             $request->session()->flash('alert', ['type' => 'error', 'message' => $th->getMessage()]);
         }
 
-        // return view('products.shop');
+        return redirect('/');
     }
 }

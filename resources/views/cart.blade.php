@@ -159,7 +159,7 @@
                                         </ul>
                                     </div> --}}
                                     <h4 class="grand-totall-title">Grand Total <span>${{ Cart::total() }}</span></h4>
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="/checkout">Proceed to Checkout</a>
                                 </div>
                             </div>
                         </div>
