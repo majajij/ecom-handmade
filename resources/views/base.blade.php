@@ -100,7 +100,7 @@
             <div class="foot">
                 <div class="buttons mt-30px">
                     <a href="/cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                    <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
+                    <a href="/checkout" class="btn btn-outline-dark current-btn">checkout</a>
                 </div>
             </div>
         </div>

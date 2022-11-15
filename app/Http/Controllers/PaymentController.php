@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
 use App\Models\Payment;
+use App\Models\Order;
+use Cart;
 
 class PaymentController extends Controller
 {
@@ -21,17 +23,20 @@ class PaymentController extends Controller
     public function pay(Request $request)
     {
         try {
+            // dd($request->all());
+            // dd(Cart::content());
             $response = $this->gateway
                 ->purchase([
-                    'amount' => $request->amount,
+                    'amount' => Cart::total(),
                     'currency' => config('paypal.credentials.currency'),
-                    'returnUrl' => url('success?ORDER_ID=' . $request->order_id),
+                    'returnUrl' => url('success?') . http_build_query($request->all(), null, '&', PHP_QUERY_RFC3986),
                     'cancelUrl' => url('error'),
                 ])
                 ->send();
 
+            // return $response;
             if ($response->isRedirect()) {
-                $response->redirect();
+                return $response->redirect();
             } else {
                 return $response->getMessage();
             }
@@ -53,14 +58,32 @@ class PaymentController extends Controller
             if ($response->isSuccessful()) {
                 $arr = $response->getData();
 
-                Payment::create([
-                    'payment_id' => $arr['id'],
-                    'payer_id' => $arr['payer']['payer_info']['payer_id'],
-                    'payer_email' => $arr['payer']['payer_info']['email'],
-                    'amount' => $arr['transactions'][0]['amount']['total'],
-                    'currency' => config('paypal.credentials.currency'),
-                    'payment_status' => $arr['state'],
+                $order = Order::create([
+                    'country_id' => $request->input('country'),
+                    'first_name' => $request->input('first_name'),
+                    'last_name' => $request->input('last_name'),
+                    'company' => $request->input('company'),
+                    'address' => $request->input('address'),
+                    'city' => $request->input('city'),
+                    'state' => $request->input('state'),
+                    'postcode' => $request->input('postcode'),
+                    'phone' => $request->input('phone'),
+                    'email' => $request->input('email'),
+                    'notes' => $request->has('notes') ? $request->input('notes') : '',
+                    'status' => 'GOOD',
                 ]);
+
+                if ($order) {
+                    $order_id = Payment::create([
+                        'payment_id' => $arr['id'],
+                        'order_id' => $order->id,
+                        'payer_id' => $arr['payer']['payer_info']['payer_id'],
+                        'payer_email' => $arr['payer']['payer_info']['email'],
+                        'amount' => $arr['transactions'][0]['amount']['total'],
+                        'currency' => config('paypal.credentials.currency'),
+                        'payment_status' => $arr['state'],
+                    ]);
+                }
 
                 return 'Payment is successfull. Your transaction ID is :' . $arr['id'];
             } else {

@@ -39,6 +39,8 @@ Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
 
+// ['middleware' => ['auth', 'verify']]
+
 //BEGIN TEST PAYMENT
 Route::get('checkout_test', function () {
     return view('checkout_test');
@@ -48,7 +50,5 @@ Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
 
 //END TEST PAYMENT
-
-// ['middleware' => ['auth', 'verify']]
 
 require __DIR__ . '/auth.php';

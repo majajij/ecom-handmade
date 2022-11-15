@@ -66,35 +66,42 @@ class CartController extends Controller
         return view('cart');
     }
 
-    public function checkout(Request $request)
+    public function checkout()
     {
-        try {
-            if ($request->isMethod('post')) {
-                $response = Http::post('http://localhost:8000/payment', [
-                    'order_id' => 2,
-                    'amount' => 100,
-                ]);
+        // try {
+        //     if ($request->isMethod('post')) {
+        //         $response = Http::post('http://127.0.0.1:9000/api/payment', [
+        //             'order_id' => 2,
+        //             'amount' => 100,
+        //         ]);
 
-                if ($response->successful()) {
-                    $request->session()->flash('alert', ['type' => 'success', 'message' => 'payment successful']);
-                }
-                if ($response->failed()) {
-                    $request->session()->flash('alert', ['type' => 'error', 'message' => 'payment failed']);
-                }
+        //         if ($response->successful()) {
+        //             // if ($response->isRedirect()) {
+        //             //     $response->redirect();
+        //             // } else {
+        //             //     return $response->getMessage();
+        //             // }
+        //             // dd($response);
+        //             return $response;
+        //             // $request->session()->flash('alert', ['type' => 'success', 'message' => 'payment successful']);
+        //         }
+        //         if ($response->failed()) {
+        //             $request->session()->flash('alert', ['type' => 'error', 'message' => 'payment failed']);
+        //         }
 
-                // dd($request);
-            } else {
-                $countries = Country::all();
-                return view('checkout', compact('countries'));
-            }
+        //         // dd($request);
+        //     } else {
+        $countries = Country::all();
+        return view('checkout', compact('countries'));
+        // }
 
-            // dd('checkout');
-            // Cart::update($request->prd_row_id, $request->prd_qty);
-            // $request->session()->flash('alert', ['type' => 'success', 'message' => 'Article updated successfully']);
-        } catch (\Throwable $th) {
-            $request->session()->flash('alert', ['type' => 'error', 'message' => $th->getMessage()]);
-        }
+        // dd('checkout');
+        // Cart::update($request->prd_row_id, $request->prd_qty);
+        // $request->session()->flash('alert', ['type' => 'success', 'message' => 'Article updated successfully']);
+        // } catch (\Throwable $th) {
+        //     $request->session()->flash('alert', ['type' => 'error', 'message' => $th->getMessage()]);
+        // }
 
-        return redirect('/');
+        // return redirect('/');
     }
 }

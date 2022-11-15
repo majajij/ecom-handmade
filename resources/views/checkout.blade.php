@@ -21,7 +21,7 @@
     <!-- checkout area start -->
     <div class="checkout-area pt-100px pb-100px">
         <div class="container">
-            <form action="{{ route('checkout') }}" method="post">
+            <form action="{{ route('payment') }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col-lg-7">
