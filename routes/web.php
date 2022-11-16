@@ -34,7 +34,6 @@ Route::post('shop', [ProductController::class, 'shop'])->name('shopFilter');
 Route::post('add_to_cart', [CartController::class, 'addToCart']);
 Route::get('cart', [CartController::class, 'showCart']);
 Route::get('checkout', [CartController::class, 'checkout']);
-Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
@@ -42,13 +41,11 @@ Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_
 // ['middleware' => ['auth', 'verify']]
 
 //BEGIN TEST PAYMENT
-Route::get('checkout_test', function () {
-    return view('checkout_test');
-});
-Route::post('payment', [PaymentController::class, 'pay'])->name('payment');
+Route::post('payment', [PaymentController::class, 'pay'])
+    ->name('payment')
+    ->middleware(['auth']);
 Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
-
 //END TEST PAYMENT
 
 require __DIR__ . '/auth.php';

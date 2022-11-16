@@ -59,6 +59,7 @@ class PaymentController extends Controller
                 $arr = $response->getData();
 
                 $order = Order::create([
+                    'user_id' => auth()->user()->id,
                     'country_id' => $request->input('country'),
                     'first_name' => $request->input('first_name'),
                     'last_name' => $request->input('last_name'),
@@ -85,13 +86,16 @@ class PaymentController extends Controller
                     ]);
                 }
 
-                return 'Payment is successfull. Your transaction ID is :' . $arr['id'];
+                $request->session()->flash('alert', ['type' => 'success', 'message' => 'Payment is successfull. Your transaction ID is :' . $arr['id']]);
+                // return 'Payment is successfull. Your transaction ID is :' . $arr['id'];
             } else {
                 return $response->getMessage();
             }
         } else {
             return 'Payment declined';
         }
+
+        return redirect('/');
     }
 
     public function error(Request $request)

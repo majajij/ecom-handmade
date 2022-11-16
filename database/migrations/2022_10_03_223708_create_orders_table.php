@@ -15,6 +15,10 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table
+                ->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
                 ->foreignId('country_id')
                 ->constrained()
                 ->cascadeOnDelete();
@@ -27,7 +31,7 @@ return new class extends Migration {
             $table->string('postcode');
             $table->string('phone');
             $table->string('email');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
