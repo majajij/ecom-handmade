@@ -10,14 +10,13 @@
                 <div class="col align-self-center d-none d-lg-block">
                     <div class="main-menu">
                         <ul>
-                            <li class="dropdown"><a href="#">Home <i class="fa fa-angle-down"></i></a>
+                            {{-- <li class="dropdown"><a href="#">Home <i class="fa fa-angle-down"></i></a>
                                 <ul class="sub-menu">
                                     <li><a href="index.html">Home 1</a></li>
                                     <li><a href="index-2.html">Home 2</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="about.html">About</a></li>
-                            <li class="dropdown position-static"><a href="about.html">Pages <i
+                            </li> --}}
+                            {{-- <li class="dropdown position-static"><a href="about.html">Pages <i
                                         class="fa fa-angle-down"></i></a>
                                 <ul class="mega-menu d-block">
                                     <li class="d-flex">
@@ -53,8 +52,8 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="dropdown position-static"><a href="#">Shop <i
+                            </li> --}}
+                            {{-- <li class="dropdown position-static"><a href="#">Shop <i
                                         class="fa fa-angle-down"></i></a>
                                 <ul class="mega-menu d-block">
                                     <li class="d-flex">
@@ -109,8 +108,8 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="dropdown "><a href="#">Blog <i class="fa fa-angle-down"></i></a>
+                            </li> --}}
+                            {{-- <li class="dropdown "><a href="#">Blog <i class="fa fa-angle-down"></i></a>
                                 <ul class="sub-menu">
                                     <li><a href="blog-grid.html">Blog Grid Page</a></li>
                                     <li><a href="blog-grid-left-sidebar.html">Grid Left Sidebar</a></li>
@@ -119,8 +118,11 @@
                                     <li><a href="blog-single-left-sidebar.html">Single Left Sidebar</a></li>
                                     <li><a href="blog-single-right-sidebar.html">Single Right Sidbar</a>
                                 </ul>
-                            </li>
-                            <li><a href="contact.html">Contact</a></li>
+                            </li> --}}
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                            <li><a href="/cart">Cart</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -128,10 +130,10 @@
                 <div class="col col-lg-auto align-self-center pl-0">
                     <div class="header-actions">
                         <!-- Single Wedge Start -->
-                        <a href="#" class="header-action-btn" data-bs-toggle="modal"
+                        {{-- <a href="#" class="header-action-btn" data-bs-toggle="modal"
                             data-bs-target="#searchActive">
                             <i class="pe-7s-search"></i>
-                        </a>
+                        </a> --}}
                         <!-- Single Wedge End -->
 
                         <div class="header-bottom-set dropdown">

@@ -38,6 +38,8 @@ Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
 
+Route::get('contact', [HomeController::class, 'contact']);
+
 // ['middleware' => ['auth', 'verify']]
 
 //BEGIN TEST PAYMENT
