@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ use App\Http\Controllers\PaymentController;
 // Route::get('404', function () {
 //     return view('404');
 // });
+require __DIR__ . '/auth.php';
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/quick-view-product/{id}', [ProductController::class, 'quickview'])->name('quick-view-product');
 Route::resource('products', ProductController::class);
@@ -50,4 +53,5 @@ Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
 //END TEST PAYMENT
 
-require __DIR__ . '/auth.php';
+//ADMIN
+Route::get('admin', [AdminController::class, 'admin']);
