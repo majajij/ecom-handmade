@@ -149,7 +149,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a class="dropdown-item"
-                                        href="/{{ auth()->check() ? 'my_ccount' : 'login' }}">{{ auth()->check() ? 'My Account' : 'Login' }}</a>
+                                        href="/{{ auth()->check() ? 'my-account' : 'login' }}">{{ auth()->check() ? 'My Account' : 'Login' }}</a>
                                 </li>
                                 @if (!auth()->check())
                                     <li><a class="dropdown-item" href="/register">Register</a></li>
