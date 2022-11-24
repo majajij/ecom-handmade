@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->string('email');
             $table->text('notes')->nullable();
             $table->string('status')->nullable();
+            $table->float('amount', 10, 2);
             $table->timestamps();
         });
     }

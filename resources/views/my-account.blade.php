@@ -27,9 +27,10 @@
                     <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
                         <ul role="tablist" class="nav flex-column dashboard-list">
                             <li> <a href="#orders" data-bs-toggle="tab" class="nav-link active">Orders</a></li>
-                            <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Downloads</a></li>
                             <li><a href="#account-details" data-bs-toggle="tab" class="nav-link">Account details</a>
+                            <li><a href="#change-password" data-bs-toggle="tab" class="nav-link">Change password</a>
                             </li>
+                            <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Downloads</a></li>
                         </ul>
                     </div>
                 </div>
@@ -50,20 +51,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>May 10, 2018</td>
-                                            <td><span class="success">Completed</span></td>
-                                            <td>$25.00 for 1 item </td>
-                                            <td><a href="cart.html" class="view">view</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>May 10, 2018</td>
-                                            <td>Processing</td>
-                                            <td>$17.00 for 1 item </td>
-                                            <td><a href="cart.html" class="view">view</a></td>
-                                        </tr>
+                                        @foreach ($orders as $order)
+                                            <tr>
+                                                <td>{{ $order->id }}</td>
+                                                <td>{{ $order->created_at }}</td>
+                                                <td><span class="success">{{ $order->status }}</span></td>
+                                                <td>${{ $order->amount }}</td>
+                                                <td class="inline-flex">
+                                                    <a class="btn btn-danger p-2 mb-1">Cancel</a>
+                                                    <a class="btn btn-info p-2">Details</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -103,49 +102,49 @@
                                 <div class="login_form_container">
                                     <div class="account_login_form">
                                         <form action="#">
-                                            <p>Already have an account? <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#loginActive">Log in instead!</a></p>
-                                            <div class="input-radio">
-                                                <span class="custom-radio"><input type="radio" value="1"
-                                                        name="id_gender"> Mr.</span>
-                                                <span class="custom-radio"><input type="radio" value="1"
-                                                        name="id_gender"> Mrs.</span>
-                                            </div> <br>
                                             <div class="default-form-box mb-20">
-                                                <label>First Name</label>
-                                                <input type="text" name="first-name">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Last Name</label>
-                                                <input type="text" name="last-name">
+                                                <label>Full Name</label>
+                                                <input type="text" name="full-name" value="{{ auth()->user()->name }}">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>Email</label>
-                                                <input type="text" name="email-name">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Password</label>
-                                                <input type="password" name="user-password">
+                                                <input type="email" name="email-name" value="{{ auth()->user()->email }}">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>Birthdate</label>
-                                                <input type="date" name="birthday">
+                                                <input type="date" name="birthday"
+                                                    value="{{ auth()->user()->birthday }}">
                                             </div>
                                             <span class="example">
                                                 (E.g.: 05/31/1970)
                                             </span>
-                                            <br>
-                                            <label class="checkbox-default" for="offer">
-                                                <input type="checkbox" id="offer">
-                                                <span>Receive offers from our partners</span>
-                                            </label>
-                                            <br>
-                                            <label class="checkbox-default checkbox-default-more-text" for="newsletter">
-                                                <input type="checkbox" id="newsletter">
-                                                <span>Sign up for our newsletter<br><em>You may unsubscribe at any
-                                                        moment. For that purpose, please find our contact info in the
-                                                        legal notice.</em></span>
-                                            </label>
+                                            <div class="save_button mt-3">
+                                                <button class="btn" type="submit">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="change-password">
+                            <h3>Change password </h3>
+                            <div class="login">
+                                <div class="login_form_container">
+                                    <div class="account_login_form">
+                                        <form action="#">
+
+                                            <div class="default-form-box mb-20">
+                                                <label>Old password</label>
+                                                <input type="password" name="old-password">
+                                            </div>
+                                            <div class="default-form-box mb-20">
+                                                <label>New password</label>
+                                                <input type="password" name="new-password">
+                                            </div>
+                                            <div class="default-form-box mb-20">
+                                                <label>Confirm password</label>
+                                                <input type="password" name="confirm-password">
+                                            </div>
                                             <div class="save_button mt-3">
                                                 <button class="btn" type="submit">Save</button>
                                             </div>

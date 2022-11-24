@@ -23,8 +23,6 @@ class PaymentController extends Controller
     public function pay(Request $request)
     {
         try {
-            // dd($request->all());
-            // dd(Cart::content());
             $response = $this->gateway
                 ->purchase([
                     'amount' => Cart::total(),
@@ -34,7 +32,6 @@ class PaymentController extends Controller
                 ])
                 ->send();
 
-            // return $response;
             if ($response->isRedirect()) {
                 return $response->redirect();
             } else {
@@ -56,8 +53,6 @@ class PaymentController extends Controller
             $response = $transaction->send();
 
             if ($response->isSuccessful()) {
-                $arr = $response->getData();
-
                 $order = Order::create([
                     'user_id' => auth()->user()->id,
                     'country_id' => $request->input('country'),
@@ -71,10 +66,23 @@ class PaymentController extends Controller
                     'phone' => $request->input('phone'),
                     'email' => $request->input('email'),
                     'notes' => $request->has('notes') ? $request->input('notes') : '',
-                    'status' => 'GOOD',
+                    'status' => 'Processing',
+                    'amount' => Cart::total(),
                 ]);
 
                 if ($order) {
+                    $order_product = [];
+                    foreach (Cart::content() as $product) {
+                        array_push($order_product, [
+                            'product_id' => $product->id,
+                            'qty' => $product->qty,
+                        ]);
+                    }
+
+                    $order->products()->attach($order_product);
+
+                    $arr = $response->getData();
+
                     $order_id = Payment::create([
                         'payment_id' => $arr['id'],
                         'order_id' => $order->id,
@@ -87,7 +95,6 @@ class PaymentController extends Controller
                 }
 
                 $request->session()->flash('alert', ['type' => 'success', 'message' => 'Payment is successfull. Your transaction ID is :' . $arr['id']]);
-                // return 'Payment is successfull. Your transaction ID is :' . $arr['id'];
             } else {
                 return $response->getMessage();
             }
