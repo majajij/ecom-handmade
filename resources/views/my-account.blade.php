@@ -101,14 +101,17 @@
                             <div class="login">
                                 <div class="login_form_container">
                                     <div class="account_login_form">
-                                        <form action="#">
+                                        <form action="{{ route('update_user') }}" method="POST">
+                                            @method('PUT')
+                                            @csrf
                                             <div class="default-form-box mb-20">
                                                 <label>Full Name</label>
-                                                <input type="text" name="full-name" value="{{ auth()->user()->name }}">
+                                                <input type="text" name="name" value="{{ auth()->user()->name }}">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>Email</label>
-                                                <input type="email" name="email-name" value="{{ auth()->user()->email }}">
+                                                <input type="email" name="email" disabled
+                                                    value="{{ auth()->user()->email }}">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>Birthdate</label>
@@ -131,19 +134,20 @@
                             <div class="login">
                                 <div class="login_form_container">
                                     <div class="account_login_form">
-                                        <form action="#">
-
+                                        <form action="{{ route('change_password') }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="default-form-box mb-20">
                                                 <label>Old password</label>
-                                                <input type="password" name="old-password">
+                                                <input type="password" name="old_password">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>New password</label>
-                                                <input type="password" name="new-password">
+                                                <input type="password" name="new_password">
                                             </div>
                                             <div class="default-form-box mb-20">
                                                 <label>Confirm password</label>
-                                                <input type="password" name="confirm-password">
+                                                <input type="password" name="confirm_password">
                                             </div>
                                             <div class="save_button mt-3">
                                                 <button class="btn" type="submit">Save</button>

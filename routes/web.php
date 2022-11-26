@@ -41,6 +41,8 @@ Route::get('checkout', [CartController::class, 'checkout']);
 Route::get('clear_cart', [CartController::class, 'clearCart']);
 Route::get('remove_from_cart/{id}', [CartController::class, 'removeFromCart']);
 Route::post('update_cart', [CartController::class, 'updateCart'])->name('update_cart');
+Route::put('update_user', [UserController::class, 'updateUser'])->name('update_user');
+Route::put('change_password', [UserController::class, 'changePassword'])->name('change_password');
 
 Route::get('contact', [HomeController::class, 'contact']);
 Route::get('my-account', [UserController::class, 'getMyAccount'])->middleware(['auth']);
