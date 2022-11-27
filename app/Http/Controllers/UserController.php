@@ -32,6 +32,7 @@ class UserController extends Controller
             }
 
             $request->session()->flash('alert', ['type' => 'error', 'message' => $msg]);
+            return redirect()->back();
         }
 
         User::where('id', auth()->user()->id)->update([
@@ -46,11 +47,10 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
-        dd($request);
         $validator = Validator::make($request->all(), [
-            'old_password' => ['required'],
-            'new_password' => ['required'],
-            'confirm_password' => ['required'],
+            'old_password' => 'required',
+            'new_password' => 'required',
+            'confirm_password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -62,16 +62,27 @@ class UserController extends Controller
             }
 
             $request->session()->flash('alert', ['type' => 'error', 'message' => $msg]);
+            return redirect()->back();
         }
-
-        if (Hash::make($request->old_password) == auth()->user()->password) {
-            dd('good');
+        // dd(Hash::check($request->old_password, auth()->user()->password));
+        if (Hash::check($request->old_password, auth()->user()->password)) {
+            if ($request->new_password == $request->confirm_password) {
+                auth()
+                    ->user()
+                    ->update([
+                        'password' => Hash::make($request->new_password),
+                    ]);
+            } else {
+                $request->session()->flash('alert', ['type' => 'error', 'message' => 'New and confirm password are not the same']);
+                return redirect()->back();
+            }
         } else {
-            dd('no');
+            $request->session()->flash('alert', ['type' => 'error', 'message' => 'Old password incorrect']);
+            return redirect()->back();
         }
 
         $request->session()->flash('alert', ['type' => 'success', 'message' => 'Password changed successfully']);
 
-        return redirect()->back();
+        return redirect('/');
     }
 }
